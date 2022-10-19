@@ -1100,6 +1100,11 @@
   "resolved" "https://registry.npmjs.org/@fontsource/open-sans/-/open-sans-4.5.13.tgz"
   "version" "4.5.13"
 
+"@fontsource/poppins@^4.5.10":
+  "integrity" "sha512-oYZVHsnlwV3VWM1SE/m6SUxVh0QLk5+2wB+lBiXcI7N/0KVQWmV9YykaPqfJHBLvmdya+MAOnv+BQHeLU1vOOw=="
+  "resolved" "https://registry.npmjs.org/@fontsource/poppins/-/poppins-4.5.10.tgz"
+  "version" "4.5.10"
+
 "@fontsource/raleway@^4.5.11":
   "integrity" "sha512-WrFuS5q3tPqNci4iDwIf7lnkHY5jrkWswy6B007W//cAB7Iiw2NuxBNxrCetYpe3efPbEoFPcoKeTPqDzoWQ3A=="
   "resolved" "https://registry.npmjs.org/@fontsource/raleway/-/raleway-4.5.11.tgz"

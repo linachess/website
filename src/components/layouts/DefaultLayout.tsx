@@ -1,3 +1,5 @@
+import { Box, Flex } from '@chakra-ui/react'
+import { Navbar } from '@components/modules'
 import Head from 'next/head'
 import React from 'react'
 
@@ -14,11 +16,24 @@ export const DefaultLayout: React.FC<DefaultLayoutProps> = ({
 }) => {
 
 	return (<>
+    
         <Head>
 			<title>{ title }</title>
             <link rel="icon" href={ iconHref } />
 		</Head>
 
-        { children }
+        <Navbar />
+
+        <Flex justifyContent='center'>
+
+            <Flex 
+                flexDir='column' alignItems='center' 
+                maxWidth='960px'
+            >
+                { children }
+            </Flex>
+
+        </Flex>
+
     </>)
 }
