@@ -24,11 +24,11 @@ export const DefaultLayout: React.FC<DefaultLayoutProps> = ({
 
         <Navbar />
 
-        <Flex justifyContent='center'>
+        <Flex justifyContent='center' px='5rem'>
 
             <Flex 
                 flexDir='column' alignItems='center' 
-                maxWidth='960px'
+                maxWidth='1280px'
             >
                 { children }
             </Flex>
