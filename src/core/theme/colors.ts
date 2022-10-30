@@ -1,11 +1,16 @@
 const colors = {
 
-    bgPrimary: '#000',
-    bgSecondary: '#1f1f1f',
+    bg: {
+        primary: '#000',
+        secondary: '#1f1f1f',
+    },
 
-    textPrimary: '#bea08a',
-    textSecondary: '#696969',
-    textTertiary: '#303030'
+    text: {
+        primary: '#bea08a',
+        secondary: '#696969',
+        tertiary: '#303030'
+    },
+
 }
 
 export default colors

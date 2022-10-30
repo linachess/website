@@ -7,7 +7,7 @@ export const BuyButton: React.FC<BuyButtonProps> = () => {
 
 	return (<>
         <Button
-            backgroundColor='textPrimary'
+            backgroundColor='text.primary'
             color='black'
         >
             Buy

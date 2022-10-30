@@ -11,7 +11,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
         <Flex 
             justifyContent='space-between' 
-            padding='1em 3em'
+            padding='1.5em 3em'
             marginBottom='1em'
         >
 
@@ -21,9 +21,9 @@ export const Navbar: React.FC<NavbarProps> = () => {
             {/* right */}
             <HStack spacing='3em'>
                 
-                <NavItem title="Test1" href="#"/>
-                <NavItem title="Test2" href="#"/>
-                <NavItem title="Test3" href="#"/>
+                <NavItem title="Home" href="/"/>
+                <NavItem title="Investors" href="/investors"/>
+                <NavItem title="Overview" href="/overview"/>
 
                 <BuyButton />
 

@@ -8,16 +8,7 @@ export const BuyButton: React.FC<BuyButtonProps> = () => {
 	return (<>
 
         <Button
-            variant='outline'
-            size='lg'
-            color='textPrimary'
-            borderColor='textPrimary'
-            fontFamily='Raleway'
-            fontWeight='bolder'
-            _hover={{
-                bg: 'textPrimary',
-                color: 'bgPrimary'
-            }}
+            variant='primary'
         >
             Buy
         </Button>
