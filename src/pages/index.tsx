@@ -13,7 +13,7 @@ export const getStaticProps = async () => {
 			image: '/assets/chess_queen.svg',
 			price: '34.99',
 			promotedPrice: '29.99' as string | null,
-			buyable: false
+			buyable: true
 		}
 	}
 }
@@ -44,30 +44,42 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
 					<HStack spacing={10}>
 
-						<Text 
-							fontSize='2rem' fontWeight='100'
-							fontFamily='Raleway'
-						>
-							{props.promotedPrice || props.price}€
+						{props.buyable ?
+							<Text 
+								fontSize='2rem' fontWeight='100'
+								fontFamily='Raleway'
+							>
+								{props.promotedPrice || props.price}€
 
-							{/* original price if case of promotion */}
-							{
-								props.promotedPrice && 
-								<Box as='span' 
-									textDecoration='line-through'
-									color='text.secondary'
-									fontSize='1.5rem'
-									ml='1.5rem'
-								>
-									{props.price}€
-								</Box>
-							}
+								{/* original price if case of promotion */}
+								{
+									props.promotedPrice && 
+									<Box as='span' 
+										textDecoration='line-through'
+										color='text.secondary'
+										fontSize='1.5rem'
+										ml='1.5rem'
+									>
+										{props.price}€
+									</Box>
+								}
 
-						</Text>
+							</Text>
+
+							:
+
+							<Text
+								fontSize='1.5rem' fontWeight='100'
+								color='text.secondary'
+								fontFamily='Raleway'
+							>
+								LinaChess is not buyable for now.
+							</Text>
+						}
 
 					</HStack>
 
-					<BuyButton />
+					<BuyButton disabled={!props.buyable}/>
 
 				</VStack>
 
