@@ -1,7 +1,8 @@
 import React from 'react'
 
 import { Flex, HStack } from '@chakra-ui/react'
-import { Logo, NavItem, BuyButton } from '@components/modules/navigation'
+import { Logo, NavItem } from '@components/modules/navigation'
+import { BuyButton } from '@components/modules/home'
 
 type NavbarProps = {}
 
@@ -25,7 +26,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
                 <NavItem title="Investors" href="/investors"/>
                 <NavItem title="Overview" href="/overview"/>
 
-                <BuyButton />
+                <BuyButton disabled={false}/>
 
             </HStack>
 
