@@ -4,6 +4,7 @@ import axios, { AxiosError } from 'axios'
 
 import { Button } from '@chakra-ui/react'
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js'
+import { trpc } from '@core/utils'
 
 type BuyButtonProps = {
     disabled: boolean
@@ -11,24 +12,21 @@ type BuyButtonProps = {
 
 export const BuyButton: React.FC<BuyButtonProps> = ({ disabled }) => {
 
-    const createMutation = useMutation<{ data: any }, AxiosError, any, Response>(
-        (): any => axios.post('/api/paypal/createOrder'),
-    )
-
-    const captureMutation = useMutation<string, AxiosError, any, Response>(
-        (data): any => axios.post('/api/paypal/captureOrder', data),
-    )
+    const createOrderMutation = trpc.paypal.createOrder.useMutation()
+    const captureOrderQuery = trpc.paypal.captureOrder.useMutation()
 
     const createPaypalOrder = async (): Promise<string> => {
-        const response = await createMutation.mutateAsync({})
-        return response.data.orderID
+        const { orderID } = await createOrderMutation.mutateAsync({ discountCode: 'TEST' })
+        return orderID
     }
 
-    const onApprove = async (data: OnApproveData): Promise<void> => {
-        return captureMutation.mutate({ orderID: data.orderID })
-    }
+    const onApprove = async ({ orderID }: OnApproveData): Promise<void> => { captureOrderQuery.mutateAsync({ orderID }) }
 
     return (<>
+
+        {
+            createOrderMutation.isError && <p>{createOrderMutation.error.message}</p>
+        }
 
         <PayPalButtons 
             style={{ layout: 'horizontal' }}

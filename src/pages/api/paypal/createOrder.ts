@@ -1,4 +1,5 @@
 import client from '@lib/paypal'
+import strapi from '@lib/strapi'
 import paypal from '@paypal/checkout-server-sdk'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -10,6 +11,15 @@ type Data = {
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+
+	const { discountCode } = req.body
+
+	if (discountCode && !(await isDiscountCodeValid(discountCode))) {
+		// return res.status(400).send({
+		// 	code: 'INVALID_DISCOUNT_CODE',
+		// 	message: 'The discount code is invalid',
+		// })
+	}
 
 	const paypalRequest = new paypal.orders.OrdersCreateRequest()
 	paypalRequest.headers['Prefer'] = 'return=representation'
@@ -31,6 +41,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 	}
 
 	res.status(200).json({ status: 'success', orderID: paypalResponse.result.id })
+}
+
+const isDiscountCodeValid = async (discountCode: string) => {
+
+	const res = await strapi.get('/discounts', {
+		params: {
+			filters: {
+				active: { $eq: true }
+			}
+		}
+	})
+
+	console.log('[activeDiscountCodes]', res)
+
+	return false
 }
 
 export default handler

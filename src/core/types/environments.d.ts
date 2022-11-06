@@ -4,6 +4,9 @@ declare global {
 
             NODE_ENV: 'development' | 'production'
 
+            STRAPI_URL: string
+            STRAPI_ADMIN_JWT: string
+
             NEXT_PUBLIC_PAYPAL_CLIENT_ID: string
             PAYPAL_CLIENT_ID: string
             PAYPAL_CLIENT_SECRET: string
