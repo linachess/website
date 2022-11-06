@@ -3,17 +3,29 @@ import type { InferGetStaticPropsType, NextPage } from 'next'
 import { Box, Flex, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react'
 import { DefaultLayout } from '@components/layouts'
 import { BuyButton, LandingSection } from '@components/modules'
+import strapi from '@lib/strapi'
 
 export const getStaticProps = async () => {
 
+	const homepageData = await strapi.find('homepage'),
+		  buyData = await strapi.find('buy')
+
+	const getPromotedPrice = () => {
+
+		const { currentPrice, currentDiscount } = buyData
+		if (!currentDiscount || currentDiscount.active === false) return null
+
+		return (currentPrice - (currentPrice * currentDiscount.percentage / 100)).toFixed(2)
+	}
+
 	return {
 		props: {
-			catchPhrase: 'Check mate.',
-			description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio recusandae adipisci tempora at accusantium, quia sit voluptatum! Ipsum vitae non soluta tempora corrupti consequuntur asperiores consequatur. Veritatis error odio quibusdam.',
+			catchPhrase: homepageData.catchPhrase,
+			description: homepageData.presentation,
 			image: '/assets/chess_queen.svg',
-			price: '34.99',
-			promotedPrice: '29.99' as string | null,
-			buyable: true
+			price: buyData.currentPrice,
+			promotedPrice: getPromotedPrice(),
+			buyable: buyData.buyable
 		}
 	}
 }
