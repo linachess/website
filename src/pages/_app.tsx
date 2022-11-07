@@ -5,9 +5,9 @@ import '@fontsource/raleway/400.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from '@core/theme'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
+import { trpc } from '@utils/lib'
 import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { trpc } from '@utils'
 
 const queryClient = new QueryClient()
 

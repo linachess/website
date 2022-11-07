@@ -1,11 +1,10 @@
-import client from '@lib/paypal'
-import strapi from '@lib/strapi'
-import paypal from '@paypal/checkout-server-sdk'
+import paypalSDK from '@paypal/checkout-server-sdk'
 import { publicProcedure, router } from '@server/trpc'
 import { TRPCError } from '@trpc/server'
+import { paypal, strapi } from '@utils/lib'
 import { z } from 'zod'
 
-const paypalClient = client()
+const paypalClient = paypal()
 
 export const paypalRouter = router({
 
@@ -25,7 +24,7 @@ export const paypalRouter = router({
                 })
             })
 
-            const paypalRequest = new paypal.orders.OrdersCreateRequest()
+            const paypalRequest = new paypalSDK.orders.OrdersCreateRequest()
             paypalRequest.headers['Prefer'] = 'return=representation'
             paypalRequest.requestBody({
                 intent: 'CAPTURE',
@@ -62,7 +61,7 @@ export const paypalRouter = router({
         )
         .mutation(async ({ input }) => {
             
-            const paypalRequest = new paypal.orders.OrdersCaptureRequest(input.orderID)
+            const paypalRequest = new paypalSDK.orders.OrdersCaptureRequest(input.orderID)
             // @ts-ignore
             paypalRequest.requestBody({})
         

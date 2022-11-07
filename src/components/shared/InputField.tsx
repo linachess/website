@@ -1,7 +1,7 @@
 import React from 'react'
 
+import { Box, Input, Text } from '@chakra-ui/react'
 import { Field, FieldProps } from 'formik'
-import { Box, Input, Text, useStyleConfig } from '@chakra-ui/react'
 
 type InputFieldProps = {
     name: string

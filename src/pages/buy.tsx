@@ -1,5 +1,5 @@
-import { getPromotedPrice } from '@core/utils'
-import strapi from '@lib/strapi'
+import { getPromotedPrice } from '@core/utils/functions'
+import { strapi } from '@utils/lib'
 import type { InferGetStaticPropsType, NextPage } from 'next'
 import * as yup from 'yup'
 

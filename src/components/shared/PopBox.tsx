@@ -1,6 +1,6 @@
+import { motion, useAnimation } from "framer-motion"
 import React, { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { motion, useAnimation } from "framer-motion"
 
 import { Box } from '@chakra-ui/react'
 

@@ -1,5 +1,5 @@
-import strapi from '@lib/strapi'
-import { getPromotedPrice } from '@utils'
+import { getPromotedPrice } from '@utils/functions'
+import { strapi } from '@utils/lib'
 import type { InferGetStaticPropsType, NextPage } from 'next'
 
 import { Box, Button, Flex, Heading, Image, Text, VStack } from '@chakra-ui/react'

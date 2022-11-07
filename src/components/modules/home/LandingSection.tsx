@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Text, Box, Container, GridItem, Heading, SimpleGrid, VStack, Flex, Img, Button } from "@chakra-ui/react"
-import { PopBox, ImageResolver } from "@components/shared"
+import { Box, Button, Container, Flex, Heading, Img, Text, VStack } from "@chakra-ui/react"
+import { PopBox } from "@components/shared"
 
 type LandingSectionProps = {
     title: string

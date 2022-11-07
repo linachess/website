@@ -1,4 +1,4 @@
-import { publicProcedure, router } from '@server/trpc'
+import { router } from '@server/trpc'
 
 import { paypalRouter } from './paypal'
 

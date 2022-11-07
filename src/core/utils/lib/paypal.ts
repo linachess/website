@@ -10,8 +10,6 @@ const configureEnvironment = () => {
 		: new checkoutNodeJssdk.core.SandboxEnvironment(clientId, clientSecret)
 }
 
-const client = () => {
+export const paypal = () => {
 	return new checkoutNodeJssdk.core.PayPalHttpClient(configureEnvironment())
 }
-
-export default client

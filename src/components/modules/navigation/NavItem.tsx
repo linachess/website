@@ -1,6 +1,7 @@
-import { Box, Text } from '@chakra-ui/react'
-import Link from 'next/link'
 import React from 'react'
+import Link from 'next/link'
+
+import { Box, Text } from '@chakra-ui/react'
 
 type NavItemProps = {
     title: string

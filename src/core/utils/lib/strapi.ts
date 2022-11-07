@@ -1,4 +1,5 @@
-import { formatStrapiResponse, InvalidDiscountCodeError } from '@utils'
+import { InvalidDiscountCodeError } from '@utils/errors'
+import { formatStrapiResponse } from '@utils/functions'
 import axios, { AxiosRequestConfig } from 'axios'
 
 class Strapi {
@@ -54,6 +55,4 @@ class Strapi {
     }
 }
 
-const strapi = new Strapi()
-
-export default strapi
+export const strapi = new Strapi()

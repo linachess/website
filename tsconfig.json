@@ -20,12 +20,11 @@
 		"paths": {
 		
 			"@components/*": ["src/components/*"],
-			"@lib/*": ["src/lib/*"],
 			"@server/*": ["src/server/*"],
 			
 			"@core/*": ["src/core/*"],
+			"@utils/*": ["src/core/utils/*"],
 			"@config": ["src/core/config"],
-			"@utils": ["src/core/utils/"],
 			
 			"@styles/*": ["public/styles/*"],
 			"@assets/*": ["public/assets/*"]

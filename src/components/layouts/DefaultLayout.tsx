@@ -1,7 +1,8 @@
-import { Box, Flex } from '@chakra-ui/react'
+import React from 'react'
+
+import { Flex } from '@chakra-ui/react'
 import { Navbar } from '@components/modules'
 import Head from 'next/head'
-import React from 'react'
 
 type DefaultLayoutProps = {
     title: string 

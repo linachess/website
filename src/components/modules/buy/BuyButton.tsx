@@ -1,10 +1,8 @@
 import React from 'react'
-import { useMutation } from 'react-query'
-import axios, { AxiosError } from 'axios'
 
-import { Box, Button, HStack, Text } from '@chakra-ui/react'
-import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js'
-import { trpc } from '@core/utils'
+import { HStack, Text } from '@chakra-ui/react'
+import { PayPalButtons } from '@paypal/react-paypal-js'
+import { trpc } from '@utils/lib'
 
 type BuyButtonProps = {
     disabled: boolean
