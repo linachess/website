@@ -1,22 +1,16 @@
+import strapi from '@lib/strapi'
+import { getPromotedPrice } from '@utils'
 import type { InferGetStaticPropsType, NextPage } from 'next'
 
-import { Box, Flex, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Image, Text, VStack } from '@chakra-ui/react'
 import { DefaultLayout } from '@components/layouts'
-import { BuyButton, LandingSection } from '@components/modules'
-import strapi from '@lib/strapi'
+import { LandingSection } from '@components/modules'
+import { Price } from '@components/shared'
 
 export const getStaticProps = async () => {
 
 	const homepageData = await strapi.find('homepage'),
 		  buyData = await strapi.find('buy')
-
-	const getPromotedPrice = () => {
-
-		const { currentPrice, currentDiscount } = buyData
-		if (!currentDiscount || currentDiscount.active === false) return null
-
-		return (currentPrice - (currentPrice * currentDiscount.percentage / 100)).toFixed(2)
-	}
 
 	return {
 		props: {
@@ -24,7 +18,7 @@ export const getStaticProps = async () => {
 			description: homepageData.presentation,
 			image: '/assets/chess_queen.svg',
 			price: buyData.currentPrice,
-			promotedPrice: getPromotedPrice(),
+			promotedPrice: getPromotedPrice(buyData.currentPrice, buyData.currentDiscount),
 			buyable: buyData.buyable
 		}
 	}
@@ -54,44 +48,18 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
 					<Text>{props.description}</Text>
 
-					<HStack spacing={10}>
+					<Price 
+						buyable={props.buyable}
+						price={props.price}
+						promotedPrice={props.promotedPrice}
+					/>
 
-						{props.buyable ?
-							<Text 
-								fontSize='2rem' fontWeight='100'
-								fontFamily='Raleway'
-							>
-								{props.promotedPrice || props.price}€
-
-								{/* original price if case of promotion */}
-								{
-									props.promotedPrice && 
-									<Box as='span' 
-										textDecoration='line-through'
-										color='text.secondary'
-										fontSize='1.5rem'
-										ml='1.5rem'
-									>
-										{props.price}€
-									</Box>
-								}
-
-							</Text>
-
-							:
-
-							<Text
-								fontSize='1.5rem' fontWeight='100'
-								color='text.secondary'
-								fontFamily='Raleway'
-							>
-								LinaChess is not buyable for now.
-							</Text>
-						}
-
-					</HStack>
-
-					<BuyButton disabled={!props.buyable}/>
+					<Button 
+						as='a' href='/buy'
+						variant='primary'
+					>
+						Buy
+					</Button>
 
 				</VStack>
 

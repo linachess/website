@@ -7,6 +7,6 @@ type LogoProps = {}
 export const Logo: React.FC<LogoProps> = () => {
 
 	return (<>
-        <Heading as='h2'>Lina<Box as='span' color='#c0c0c0'>Chess</Box></Heading>
+        <Heading as='h2' userSelect='none'>Lina<Box as='span' color='#c0c0c0'>Chess</Box></Heading>
     </>)
 }

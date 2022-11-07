@@ -1,5 +1,5 @@
 {
-  "name": "next-template",
+  "name": "linachess",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,6 +16,7 @@
     "@fontsource/open-sans": "^4.5.13",
     "@fontsource/poppins": "^4.5.10",
     "@fontsource/raleway": "^4.5.11",
+    "@hookform/resolvers": "^2.9.10",
     "@paypal/checkout-server-sdk": "^1.0.3",
     "@paypal/react-paypal-js": "^7.8.1",
     "@tanstack/react-query": "^4.14.3",
@@ -24,15 +25,18 @@
     "@trpc/react-query": "^10.0.0-proxy-beta.26",
     "@trpc/server": "^10.0.0-proxy-beta.26",
     "axios": "^1.1.3",
+    "formik": "^2.2.9",
     "framer-motion": "^7.6.1",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.39.1",
     "react-intersection-observer": "^9.4.0",
     "react-query": "^3.39.2",
     "sass": "^1.55.0",
     "strapi-sdk-js": "^2.2.0",
     "superjson": "^1.11.0",
+    "yup": "^0.32.11",
     "zod": "^3.19.1"
   },
   "devDependencies": {

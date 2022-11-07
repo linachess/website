@@ -17,14 +17,13 @@ export const paypalRouter = router({
         )
         .mutation(async ({ input }) => {
             
-
-            if (input?.discountCode && !(await isDiscountCodeValid(input.discountCode))) {
+            const price = await strapi.getPrice().catch(() => {
                 throw new TRPCError({
                     code: 'BAD_REQUEST',
                     message: 'The discount code is invalid',
                     cause: 'INVALID_DISCOUNT_CODE',
                 })
-            }
+            })
 
             const paypalRequest = new paypal.orders.OrdersCreateRequest()
             paypalRequest.headers['Prefer'] = 'return=representation'
@@ -33,8 +32,8 @@ export const paypalRouter = router({
                 purchase_units: [
                     {
                         amount: {
-                            currency_code: 'USD',
-                            value: '100.00',
+                            currency_code: 'EUR',
+                            value: price.toFixed(2),
                         },
                     },
                 ],
@@ -75,22 +74,11 @@ export const paypalRouter = router({
                     cause: 'PAYPAL_ERROR',
                 })
             }
+
+            console.log('payment successful')
                 
             return { 
                 ...paypalResponse.result 
             }
         })
 })
-
-const isDiscountCodeValid = async (discountCode: string) => {
-
-	const data = await strapi.find('discounts', {
-		params: {
-			filters: {
-				active: { $eq: true }
-			}
-		}
-	})
-
-    return data.find((discount: any) => discount.code === discountCode)
-}

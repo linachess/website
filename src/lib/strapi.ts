@@ -1,4 +1,4 @@
-import { formatStrapiResponse } from '@utils'
+import { formatStrapiResponse, InvalidDiscountCodeError } from '@utils'
 import axios, { AxiosRequestConfig } from 'axios'
 
 class Strapi {
@@ -19,6 +19,38 @@ class Strapi {
 
         const res = await this.axios.get(sanitizedUrl, config)
         return formatStrapiResponse(res.data)
+    }
+
+    async getPrice(discountCode?: string) {
+
+        const basePrice = (await this.find('buy')).currentPrice
+
+        if (discountCode) {
+
+            const discount = await strapi.find('discounts', {
+                params: {
+                    filters: {
+                        code: { $eq: discountCode }
+                    }
+                }
+            })
+
+            if (!discount) {
+                throw new InvalidDiscountCodeError()
+            } else {
+                return basePrice - (discount.percentage * basePrice) / 100
+            }
+
+        } else {
+
+            const baseDiscount = (await this.find('buy')).currentDiscount
+
+            if (baseDiscount && baseDiscount.active) {
+                return basePrice - (baseDiscount.percentage * basePrice) / 100
+            } else {
+                return basePrice
+            }
+        }
     }
 }
 

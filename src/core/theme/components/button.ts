@@ -1,4 +1,6 @@
-const styles = {
+import { defineStyleConfig } from "@chakra-ui/react"
+
+const styles = defineStyleConfig({
 
     variants: {
 
@@ -16,6 +18,6 @@ const styles = {
             }
         })
     }
-}
+})
 
 export default styles

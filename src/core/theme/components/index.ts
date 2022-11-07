@@ -1,7 +1,9 @@
 import Button from './button'
+import Text from './text'
 
 const components = {
-    Button
+    Button,
+    Text,
 }
 
 export default components
