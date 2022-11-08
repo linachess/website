@@ -7,17 +7,21 @@ import { Form, useFormikContext } from 'formik'
 
 type BuyFormProps = {
     disabled: boolean
+    values: {
+        firstName: string
+        lastName: string
+        email: string
+        discountCode: string
+    }
 }
 
-export const BuyForm: React.FC<BuyFormProps> = ({ disabled }) => {
+export const BuyForm: React.FC<BuyFormProps> = ({ disabled, values }) => {
 
-    const { values, isValid, dirty } = useFormikContext()
+    const { isValid, dirty } = useFormikContext()
 	const [canBuy, setCanBuy] = useState(false)
 
 	useEffect(() => {
-
 		setCanBuy(isValid && dirty)
-
 	}, [isValid, dirty])
 
 	return (<>
@@ -42,8 +46,16 @@ export const BuyForm: React.FC<BuyFormProps> = ({ disabled }) => {
 
         </Form>
 
-        {/* @ts-ignore */}
-        <BuyButton disabled={!canBuy} discountCode={values?.discountCode}/>
+        <BuyButton 
+            disabled={!canBuy} 
+            discountCode={values.discountCode} 
+            payer={{ 
+                firstName: values.firstName, 
+                lastName: values.lastName, 
+                email: values.email 
+            }}
+        />
+
 
     </>)
 }

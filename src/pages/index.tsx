@@ -9,8 +9,8 @@ import { Price } from '@components/shared'
 
 export const getStaticProps = async () => {
 
-	const homepageData = await strapi.find('homepage'),
-		  buyData = await strapi.find('buy')
+	const homepageData = await strapi.findOne('homepage'),
+		  buyData = await strapi.findOne('buy')
 
 	return {
 		props: {
@@ -18,7 +18,7 @@ export const getStaticProps = async () => {
 			description: homepageData.presentation,
 			image: '/assets/chess_queen.svg',
 			price: buyData.currentPrice,
-			promotedPrice: getPromotedPrice(buyData.currentPrice, buyData.currentDiscount),
+			promotedPrice: getPromotedPrice(buyData.currentPrice, buyData.currentDiscount) || null,
 			buyable: buyData.buyable
 		}
 	}

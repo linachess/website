@@ -18,12 +18,12 @@ const formSchema = yup.object({
 
 export const getStaticProps = async () => {
 
-	const buyData = await strapi.find('buy')
+	const buyData = await strapi.findOne('buy')
 
 	return {
 		props: {
 			price: buyData.currentPrice,
-			promotedPrice: getPromotedPrice(buyData.currentPrice, buyData.currentDiscount),
+			promotedPrice: getPromotedPrice(buyData.currentPrice, buyData.currentDiscount) || null,
 			buyable: buyData.buyable
 		}
 	}
@@ -58,9 +58,9 @@ const BuyPage: NextPage<BuyPageProps> = (props) => {
 					discountCode: '',
 				}}
 				onSubmit={console.log}
-				render={() => (
+				render={({ values }) => (
 
-					<BuyForm disabled={!props.buyable}/>
+					<BuyForm disabled={!props.buyable} values={values}/>
 				)}
 			/>
 

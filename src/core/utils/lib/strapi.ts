@@ -1,6 +1,6 @@
 import { InvalidDiscountCodeError } from '@utils/errors'
-import { formatStrapiResponse } from '@utils/functions'
-import axios, { AxiosRequestConfig } from 'axios'
+import { applyDiscountPercentage, formatStrapiResponse } from '@utils/functions'
+import axios from 'axios'
 
 class Strapi {
 
@@ -14,40 +14,60 @@ class Strapi {
         }
     })
 
-    async find<K extends string>(url: K, config?: AxiosRequestConfig<any> | undefined) {
+    // CRUD
 
-        const sanitizedUrl = '/' + url.replace(/^\//, '')
+    async find<K extends keyof CMS.Correspondance>(url: K, params?: any): Promise<Array<CMS.Correspondance[K]>> {
 
-        const res = await this.axios.get(sanitizedUrl, config)
+        const res = await this.axios.get(this.sanitizeUrl(url), { params })
         return formatStrapiResponse(res.data)
     }
 
+    async findOne<K extends keyof CMS.Correspondance>(url: K, params?: any): Promise<CMS.Correspondance[K]> {
+
+        const res = await this.axios.get(this.sanitizeUrl(url), { params })
+        const data = formatStrapiResponse(res.data)
+
+        return Array.isArray(data) ? data[0] || null : data
+    }
+
+    async create<K extends keyof CMS.Correspondance>(url: K, data: any): Promise<CMS.Correspondance[K]> {
+
+        const res = await this.axios.post(this.sanitizeUrl(url), { data })
+        return formatStrapiResponse(res.data)
+    }
+
+    // utils
+
+    private sanitizeUrl(url: string) {
+        return '/' + url.replace(/^\//, '')
+    }
+
+    // business logic
+
     async getPrice(discountCode?: string) {
 
-        const basePrice = (await this.find('buy')).currentPrice
+        const basePrice = (await this.findOne('buy')).currentPrice
 
         if (discountCode) {
 
-            const discount = await strapi.find('discounts', {
-                params: {
-                    filters: {
-                        code: { $eq: discountCode }
-                    }
+            const discount = await strapi.findOne('discounts', {
+                filters: {
+                    code: { $eq: discountCode }
                 }
             })
 
             if (!discount) {
                 throw new InvalidDiscountCodeError()
             } else {
-                return basePrice - (discount.percentage * basePrice) / 100
+                return applyDiscountPercentage(basePrice, discount.percentage)
             }
 
         } else {
 
-            const baseDiscount = (await this.find('buy')).currentDiscount
+            const baseDiscount = (await this.findOne('buy')).currentDiscount
 
             if (baseDiscount && baseDiscount.active) {
-                return basePrice - (baseDiscount.percentage * basePrice) / 100
+                return applyDiscountPercentage(basePrice, baseDiscount.percentage)
             } else {
                 return basePrice
             }

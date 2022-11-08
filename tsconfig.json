@@ -22,9 +22,10 @@
 			"@components/*": ["src/components/*"],
 			"@server/*": ["src/server/*"],
 			
-			"@core/*": ["src/core/*"],
+			"@services": ["src/core/services"],
 			"@utils/*": ["src/core/utils/*"],
 			"@config": ["src/core/config"],
+			"@core/*": ["src/core/*"],
 			
 			"@styles/*": ["public/styles/*"],
 			"@assets/*": ["public/assets/*"]

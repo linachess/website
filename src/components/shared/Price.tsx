@@ -5,7 +5,7 @@ import { Box, HStack, Text } from '@chakra-ui/react'
 type PriceProps = {
     buyable: boolean
     price: number
-    promotedPrice?: number
+    promotedPrice: number | null
 }
 
 export const Price: React.FC<PriceProps> = ({ buyable, price, promotedPrice }) => {
@@ -22,8 +22,7 @@ export const Price: React.FC<PriceProps> = ({ buyable, price, promotedPrice }) =
                 {promotedPrice?.toFixed(2) || price.toFixed(2)}€
 
                 {/* original price if case of promotion */}
-                {
-                    promotedPrice && 
+                {promotedPrice && 
                     <Box as='span' 
                         textDecoration='line-through'
                         color='text.secondary'

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "plop": "plop --plopfile ./cli/plopfile.js"
+    "generate": "plop --plopfile ./cli/plopfile.js"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.3.6",
@@ -27,6 +27,7 @@
     "axios": "^1.1.3",
     "formik": "^2.2.9",
     "framer-motion": "^7.6.1",
+    "microinvoice": "^1.0.6",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
