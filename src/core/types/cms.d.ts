@@ -2,62 +2,82 @@ namespace CMS {
 
     // UTILS
 
-    type WithId<T> = T & { id?: string }
+    type GenericProps<T> = T & { 
+        id?: number
+        createdAt?: string
+        updatedAt?: string
+    }
 
     type Correspondance = {
-        'buy': Buy
-        'homepage': Homepage
+
         'discounts': Discount
         'invoices': Invoice
         'licenses': License
         'versions': Version
+
+        'buy': Buy
+        'homepage': Homepage
+        'config': Config
     }
 
     // COLLECTION TYPES
 
-    type Discount = WithId<{
+    type Discount = GenericProps<{
         code: string
         percentage: number
-        type: 'infinite' | 'oneTime'
-        active: boolean
-        count: number
+        type: 'infinite' | 'oneTime' = 'infinite'
+        active: boolean = true
+        count: number = 0
     }>
 
-    type Invoice = WithId<{
+    type Invoice = GenericProps<{
+        
         firstName: string
         lastName: string
         email: string
-        paypalEmail: string
-        paypalTransactionId: string
-        date: Date
         buyPrice: number
-        file?: string
+        originalPrice: number
+        date: string
+
+        paypalEmail?: string
+        paypalTransactionId?: string
+
+        file?: any
         license?: License
         discount?: Discount
     }>
 
-    type License = WithId<{
-        license: string
-        version: Version
-        invoice: Invoice
+    type License = GenericProps<{
+
+        key: string
+        downloadHash: string
+        
+        version?: Version
+        invoice?: Invoice
     }>
 
-    type Version = WithId<{
+    type Version = GenericProps<{
         version: string
-        binary: string
+        binary: any
     }>
 
     // SINGLE TYPES
 
     type Buy = {
+        
         currentPrice: number
         buyable: boolean
-        currentVersion: Version
-        currentDiscount: Discount
+
+        currentVersion?: Version
+        currentDiscount?: Discount
     }
 
     type Homepage = {
         catchPhrase: string
         presentation: string
+    }
+
+    type Config = {
+        downloadExpirationTime: number
     }
 }

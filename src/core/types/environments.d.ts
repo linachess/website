@@ -4,6 +4,9 @@ declare global {
 
             NODE_ENV: 'development' | 'production'
 
+            EMAIL: string
+            EMAIL_PASSWORD: string
+
             STRAPI_URL: string
             STRAPI_ADMIN_JWT: string
 

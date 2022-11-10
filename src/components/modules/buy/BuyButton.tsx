@@ -1,8 +1,9 @@
 import { trpc } from '@utils/lib'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import { HStack, Text } from '@chakra-ui/react'
+import { HStack, Spinner, Text } from '@chakra-ui/react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
+import { useRouter } from 'next/router'
 
 type BuyButtonProps = {
     disabled: boolean
@@ -16,11 +17,19 @@ type BuyButtonProps = {
 
 export const BuyButton: React.FC<BuyButtonProps> = ({ disabled, discountCode, payer }) => {
 
+    const router = useRouter()
+
     const createOrderMutation = trpc.paypal.createOrder.useMutation()
     const captureOrderQuery = trpc.paypal.captureOrder.useMutation()
 
     const payloadRef = useRef<{ discountCode: BuyButtonProps['discountCode'], payer: BuyButtonProps['payer'] } | null>(null)
     payloadRef.current = { discountCode, payer }
+
+    useEffect(() => {
+        if (captureOrderQuery.isSuccess) {
+            router.push('/buy/success/' + payer.email)
+        }
+    }, [captureOrderQuery.isSuccess, payer.email])
 
     const createPaypalOrder = async (): Promise<string> => {
         
@@ -51,26 +60,29 @@ export const BuyButton: React.FC<BuyButtonProps> = ({ disabled, discountCode, pa
             </>}
         </Text>
 
-        <HStack>
+        {captureOrderQuery.isLoading || captureOrderQuery.isSuccess ? 
+            <Spinner color='text.primary' />
+            :
+            <HStack>
 
-            <PayPalButtons 
-                style={{ layout: 'horizontal' }}
-                fundingSource={'paypal'}
-                disabled={disabled}
-                createOrder={createPaypalOrder}
-                onApprove={onApprove}
-            />
+                <PayPalButtons 
+                    style={{ layout: 'horizontal' }}
+                    fundingSource={'paypal'}
+                    disabled={disabled}
+                    createOrder={createPaypalOrder}
+                    onApprove={onApprove}
+                />
 
-            {/* <PayPalButtons 
-                style={{ layout: 'horizontal' }}
-                fundingSource={'card'}
-                disabled={disabled}
-                createOrder={createPaypalOrder}
-                onApprove={onApprove}
-            />        */}
+                {/* <PayPalButtons 
+                    style={{ layout: 'horizontal' }}
+                    fundingSource={'card'}
+                    disabled={disabled}
+                    createOrder={createPaypalOrder}
+                    onApprove={onApprove}
+                />        */}
 
-        </HStack>
-
+            </HStack>
+        }
 
     </>)
 }

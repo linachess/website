@@ -1,6 +1,6 @@
 import { InvalidDiscountCodeError } from '@utils/errors'
 import { applyDiscountPercentage, formatStrapiResponse } from '@utils/functions'
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
 class Strapi {
 
@@ -16,15 +16,15 @@ class Strapi {
 
     // CRUD
 
-    async find<K extends keyof CMS.Correspondance>(url: K, params?: any): Promise<Array<CMS.Correspondance[K]>> {
+    async find<K extends keyof CMS.Correspondance>(url: K, params?: any, options?: AxiosRequestConfig): Promise<Array<CMS.Correspondance[K]>> {
 
-        const res = await this.axios.get(this.sanitizeUrl(url), { params })
+        const res = await this.axios.get(this.sanitizeUrl(url), { params, ...options })
         return formatStrapiResponse(res.data)
     }
 
-    async findOne<K extends keyof CMS.Correspondance>(url: K, params?: any): Promise<CMS.Correspondance[K]> {
+    async findOne<K extends keyof CMS.Correspondance>(url: K, params?: any, options?: AxiosRequestConfig): Promise<CMS.Correspondance[K]> {
 
-        const res = await this.axios.get(this.sanitizeUrl(url), { params })
+        const res = await this.axios.get(this.sanitizeUrl(url), { params, ...options })
         const data = formatStrapiResponse(res.data)
 
         return Array.isArray(data) ? data[0] || null : data
@@ -32,7 +32,17 @@ class Strapi {
 
     async create<K extends keyof CMS.Correspondance>(url: K, data: any): Promise<CMS.Correspondance[K]> {
 
-        const res = await this.axios.post(this.sanitizeUrl(url), { data })
+        const res = await this.axios.post(this.sanitizeUrl(url), { data }, {
+            params: {
+                'workflow': true
+            }
+        })
+        return formatStrapiResponse(res.data)
+    }
+
+    async update<K extends keyof CMS.Correspondance>(url: K, id: number, data: any): Promise<CMS.Correspondance[K]> {
+
+        const res = await this.axios.put(this.sanitizeUrl(url) + `/${id}`, { data })
         return formatStrapiResponse(res.data)
     }
 
@@ -72,6 +82,27 @@ class Strapi {
                 return basePrice
             }
         }
+    }
+
+    async getBinaryFromDownloadHash(hash: string) {
+
+        const config = await this.findOne('config')
+        const license = await this.findOne('licenses', { 
+            filters: {
+                downloadHash: { $eq: hash }
+            }, 
+            populate: 'deep' 
+        })
+    
+        if (
+            !license || 
+            (license.createdAt && new Date(license.createdAt) < new Date(Date.now() - 1000 * 60 * 60 * config.downloadExpirationTime))
+        ) {
+            return null
+        }
+    
+        const file = license.version!.binary
+        return file
     }
 }
 

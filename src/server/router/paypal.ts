@@ -1,6 +1,7 @@
 import paypalSDK from '@paypal/checkout-server-sdk'
 import { publicProcedure, router } from '@server/trpc'
 import { TRPCError } from '@trpc/server'
+import { generateHash, generateLicenseKey } from '@utils/functions/generator'
 import { strapi } from '@utils/lib'
 import paypal from '@utils/lib/paypal'
 import { z } from 'zod'
@@ -82,20 +83,29 @@ export const paypalRouter = router({
             }
 
             // get the discount 
-            let discountId: string | null = null
+            let discountId: number | null = null
             if (input.discountCode) {
-                const discount = await strapi.findOne('discounts', {
+
+                const discountData = await strapi.findOne('discounts', {
                     filter: { code: { $eq: input.discountCode } }
                 })
-                discountId = discount.id!
+                discountId = discountData.id!
+
+                // update the count of the discount
+                await strapi.update('discounts', discountData.id!, {
+                    count: discountData.count + 1,
+                    active: discountData.type === 'oneTime' && discountData.count + 1 >= 1 ? false : true
+                })
+
             }
 
             // create the license
-            const { currentVersion } = await strapi.findOne('buy')
+            const { currentVersion, currentPrice } = await strapi.findOne('buy')
 
-            const license = await strapi.create('licenses', {
-                license: 'test',
-                version: currentVersion.id
+            const licenseData = await strapi.create('licenses', {
+                key: generateLicenseKey(),
+                downloadHash: generateHash(),
+                version: currentVersion!.id
             })
 
             // create the invoice
@@ -107,8 +117,9 @@ export const paypalRouter = router({
                 paypalTransactionId: paypalResponse.result.id,
                 date: new Date(),
                 buyPrice: paypalResponse.result.purchase_units[0].payments.captures[0].amount.value,
+                originalPrice: currentPrice,
                 discount: discountId,
-                license: license.id
+                license: licenseData.id
             })
             
             return { 
