@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "configs",
+  "info": {
+    "singularName": "config",
+    "pluralName": "configs",
+    "displayName": "Config",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "downloadExpirationTime": {
+      "type": "integer",
+      "required": true,
+      "min": 0
+    },
+    "emailTemplate": {
+      "type": "text"
+    }
+  }
+}

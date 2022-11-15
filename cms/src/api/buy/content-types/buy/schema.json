@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "buys",
+  "info": {
+    "singularName": "buy",
+    "pluralName": "buys",
+    "displayName": "Buy",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "currentPrice": {
+      "type": "decimal",
+      "required": true
+    },
+    "currentVersion": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::version.version"
+    },
+    "buyable": {
+      "type": "boolean"
+    },
+    "currentDiscount": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::discount.discount"
+    }
+  }
+}

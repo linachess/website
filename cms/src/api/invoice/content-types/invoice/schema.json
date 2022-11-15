@@ -1,0 +1,65 @@
+{
+  "kind": "collectionType",
+  "collectionName": "invoices",
+  "info": {
+    "singularName": "invoice",
+    "pluralName": "invoices",
+    "displayName": "Invoice",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "date": {
+      "type": "datetime",
+      "required": true
+    },
+    "license": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::license.license",
+      "mappedBy": "invoice"
+    },
+    "buyPrice": {
+      "type": "decimal",
+      "required": true
+    },
+    "discount": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::discount.discount"
+    },
+    "paypalEmail": {
+      "type": "email"
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "paypalTransactionId": {
+      "type": "string"
+    },
+    "originalPrice": {
+      "type": "float",
+      "required": true
+    }
+  }
+}
