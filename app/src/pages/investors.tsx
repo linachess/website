@@ -4,7 +4,7 @@ import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import { Box, Button, Flex, Heading, Image, SimpleGrid, Stack, Text, VStack } from '@chakra-ui/react'
 import { DefaultLayout } from '@components/layouts'
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps = async () => {
 	
 	const investorsData = await strapi.findOne('investor'),
 		  sellerData = await strapi.findOne('seller')

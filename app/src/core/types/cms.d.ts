@@ -58,6 +58,7 @@ namespace CMS {
         'homepage': Homepage
         'buy': Buy
         'investor': Investor
+        'overview': Overview
         'seller': Seller
         'config': Config
     }
@@ -124,6 +125,10 @@ namespace CMS {
         title: string
         text: string
         image: Image
+    }
+
+    type Overview = {
+        sections: Section[]
     }
 
     type Seller = {
