@@ -39,3 +39,7 @@ export const formatStrapiResponse = (object: any) => {
         }
     }
 }
+
+export const getStrapiImageUrl = (url: string) => {
+    return url.startsWith('/') ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${url}` : url
+}

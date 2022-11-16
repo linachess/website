@@ -55,8 +55,10 @@ namespace CMS {
         'licenses': License
         'versions': Version
 
-        'buy': Buy
         'homepage': Homepage
+        'buy': Buy
+        'investor': Investor
+        'seller': Seller
         'config': Config
     }
 
@@ -102,6 +104,12 @@ namespace CMS {
     }>
 
     // SINGLE TYPES
+    
+    type Homepage = {
+        catchPhrase: string
+        presentation: string
+        sections: Section[]
+    }
 
     type Buy = {
         
@@ -112,12 +120,20 @@ namespace CMS {
         currentDiscount?: Discount
     }
 
-    type Homepage = {
-        catchPhrase: string
-        presentation: string
-        sections: Section[]
+    type Investor = {
+        title: string
+        text: string
+        image: Image
     }
 
+    type Seller = {
+        name: string
+        address: string
+        email: string
+        country: string
+        phone: string
+    }
+    
     type Config = {
         downloadExpirationTime: number
     }
