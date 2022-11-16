@@ -11,15 +11,31 @@ export const formatStrapiResponse = (object: any) => {
 
     } else {
 
-        for (const attribute of Object.keys(object.attributes)) {
+        if (object.attributes) {
 
-            if (object.attributes[attribute]?.data) 
-                object.attributes[attribute] = formatStrapiResponse(object.attributes[attribute])
-            else if (object.attributes[attribute]?.data === null)
-                object.attributes[attribute] = null
+            for (const attribute of Object.keys(object.attributes)) {
+
+                if (object.attributes[attribute]?.data || Array.isArray(object.attributes[attribute])) 
+                    object.attributes[attribute] = formatStrapiResponse(object.attributes[attribute])
+                else if (object.attributes[attribute]?.data === null)
+                    object.attributes[attribute] = null
+            }
+
+            object.attributes.id = object.id
+            return object.attributes
+        
+        } else {
+
+            for (const attribute of Object.keys(object)) {
+
+                if (object[attribute]?.data || Array.isArray(object[attribute])) 
+                    object[attribute] = formatStrapiResponse(object[attribute])
+                else if (object[attribute]?.data === null)
+                    object[attribute] = null
+            }
+
+            object.id = object.id
+            return object
         }
-
-        object.attributes.id = object.id
-        return object.attributes
     }
 }

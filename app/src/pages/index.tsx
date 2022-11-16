@@ -19,7 +19,8 @@ export const getStaticProps = async () => {
 			image: '/assets/chess_queen.svg',
 			price: buyData.currentPrice,
 			promotedPrice: getPromotedPrice(buyData.currentPrice, buyData.currentDiscount) || null,
-			buyable: buyData.buyable
+			buyable: buyData.buyable,
+			sections: homepageData.sections
 		}
 	}
 }
@@ -27,7 +28,7 @@ export const getStaticProps = async () => {
 type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const HomePage: NextPage<HomePageProps> = (props) => {
-
+	
 	return (<>
 
 		<DefaultLayout
@@ -89,7 +90,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
 			<VStack spacing={{ base: '4em', lg: '10em' }}>
 
-				<LandingSection 
+				{/* <LandingSection 
 					title='Investors'
 					text='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.'
 					image={
@@ -122,7 +123,27 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 						text: 'Learn more',
 						link: '/overview'
 					}}
-				/>
+				/> */}
+
+				{props.sections?.map((section, index) => (
+					<LandingSection
+						key={index}
+						isImgFirst={index % 2 === 0}
+						title={section.title}
+						text={section.text}
+						image={section.image ? 
+							<Image
+								src={process.env['NEXT_PUBLIC_STRAPI_URL'] + section.image.url}
+								alt={section.image.alternativeText}
+								width='50%'
+							/> : undefined
+						}
+						button={section.linkButton ? {
+							text: 'Learn more',
+							link: section.linkButton
+						} : undefined}
+					/>
+				))}
 			</VStack>
 
 		</DefaultLayout>		

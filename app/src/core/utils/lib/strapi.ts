@@ -10,7 +10,7 @@ class Strapi {
             Authorization: `Bearer ${process.env['STRAPI_ADMIN_JWT']}`
         },
         params: {
-            populate: '*'
+            populate: 'deep'
         }
     })
 

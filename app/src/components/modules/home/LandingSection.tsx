@@ -4,8 +4,8 @@ import { Box, Button, Container, Flex, Heading, Img, Text, VStack } from "@chakr
 import { PopBox } from "@components/shared"
 
 type LandingSectionProps = {
-    title: string
-    image: string | React.ReactNode
+    title?: string
+    image?: string | React.ReactNode
     alt?: string
     isImgFirst?: boolean
     text?: string
@@ -29,7 +29,7 @@ export const LandingSection: React.FC<LandingSectionProps> = ({ title, image, al
                             spacing={4}
                             py={4}
                             textAlign='center'
-                            maxW="330px"
+                            maxW="400px"
                             alignItems={{ md: "center" }}
                             marginLeft={{ md: isImgFirst ? 'auto' : '0' }}
                             marginRight={{ md: isImgFirst ? '0' : 'auto' }}
@@ -70,18 +70,21 @@ export const LandingSection: React.FC<LandingSectionProps> = ({ title, image, al
                         </VStack>
 
 
-                        <Flex justifyContent='center'>
-                        {typeof image === 'string' ?
-                            <Img
-                                src={image}
-                                alt={alt || title}
-                                borderRadius='12px'
-                                boxShadow='var(--chakra-shadows-xl)'
-                            />
-                            :
-                            image
-                        }
-                        </Flex>
+                        <Box __css={!isImgFirst ? {
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                        }: {}}>
+                            {typeof image === 'string' ?
+                                <Img
+                                    src={image}
+                                    alt={alt || title}
+                                    borderRadius='12px'
+                                    boxShadow='var(--chakra-shadows-xl)'
+                                />
+                                :
+                                image
+                            }
+                        </Box>
 
                     </Flex>
                 </PopBox>
