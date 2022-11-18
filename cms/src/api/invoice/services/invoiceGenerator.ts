@@ -4,6 +4,7 @@
 
 import MicroInvoice from 'microinvoice'
 import { rm, stat } from 'fs/promises'
+import path from 'path'
 
 export class Invoice {
 
@@ -123,15 +124,16 @@ export default () => ({
 
     // generate the pdf
     const pdfName = `invoice_${invoiceData.id}_${new Date(invoiceData.date).getTime()}.pdf`
+    const pdfTempPath = path.join(__dirname, '..', '..', '..', '..', '..', 'tmp', pdfName)
 
     const invoice = new Invoice(invoiceData, sellerData)
-    const pdf = await invoice.generate('tmp/' + pdfName)
+    const pdf = await invoice.generate(pdfTempPath)
 
     // upload the generated pdf into the media library
     if (pdf) {
 
       // get the size of the pdf file via fs
-      const { size } = await stat('tmp/' + pdfName)
+      const { size } = await stat(pdfTempPath)
 
       await strapi.plugins.upload.services.upload.upload({
           data: {
@@ -140,7 +142,7 @@ export default () => ({
             field: 'file',
           },
           files: {
-            path: 'tmp/' + pdfName,
+            path: pdfTempPath,
             name: pdfName,
             type: 'application/pdf',
             size: size || 0,
@@ -148,7 +150,7 @@ export default () => ({
       })
 
       // delete the original pdf
-      await rm('tmp/' + pdfName)
+      await rm(pdfTempPath)
 
     }
   }
