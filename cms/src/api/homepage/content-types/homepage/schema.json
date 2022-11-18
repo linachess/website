@@ -19,6 +19,12 @@
     "presentation": {
       "type": "text",
       "required": true
+    },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.section"
+      ]
     }
   }
 }
