@@ -2,7 +2,7 @@ import '@fontsource/open-sans/700.css'
 import '@fontsource/poppins/900.css'
 import '@fontsource/raleway/400.css'
 
-import { ChakraProvider, ScaleFade } from '@chakra-ui/react'
+import { ChakraProvider, Fade } from '@chakra-ui/react'
 import { theme } from '@core/theme'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { trpc } from '@utils/lib'
@@ -20,13 +20,12 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 					'client-id': process.env['NEXT_PUBLIC_PAYPAL_CLIENT_ID'],
 					currency: 'EUR'
 				}}>
-					<ScaleFade
+					<Fade
 						key={router.route}
-						initialScale={0.9}
 						in={true}
 					>
 						<Component {...pageProps} />
-					</ScaleFade>
+					</Fade>
 				</PayPalScriptProvider>
 			</QueryClientProvider>
 		</ChakraProvider>
