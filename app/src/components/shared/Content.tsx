@@ -4,13 +4,14 @@ import { Button, Heading, Text, ThemeTypings, VStack } from '@chakra-ui/react'
 
 export type ContentProps = {
     text: string
-    textAlign?: 'start' | 'center' | 'end'
+    textAlign?: 'start' | 'center' | 'end' | 'justify'
     title?: string
     children?: React.ReactNode
     button?: {
         text: string
         link: string
         size?: 'sm' | 'md' | 'lg'
+        variant?: ThemeTypings['components']['Button']['variants']
     }
 }
 
@@ -43,7 +44,7 @@ export const Content: React.FC<ContentProps> = (props) => {
                     opacity='0.6'
                     lineHeight='125%'
                     w='full'
-                    textAlign={textAlign === 'start' ? 'left' : textAlign === 'end' ? 'right' : 'center'}
+                    textAlign={textAlign === 'start' ? 'left' : textAlign === 'end' ? 'right' : textAlign}
                 >
                     {props.text}
                 </Text>
@@ -51,7 +52,7 @@ export const Content: React.FC<ContentProps> = (props) => {
 
             {props.button ?
                 <Button as='a' href={props.button.link} 
-                        variant='primary' size={props.button.size || 'lg'}
+                        variant={props.button.variant || 'primary'} size={props.button.size || 'lg'}
                         mt='2rem !important'
                 >
                     {props.button.text}

@@ -35,8 +35,10 @@ const OverviewPage: NextPage<OverviewPageProps> = (props) => {
 						key={index}
 						title={section.title}
 						text={section.text}
+						textAlign='justify'
 						image={section.image ? `${process.env['NEXT_PUBLIC_STRAPI_URL']}${section.image.url}` : null}
 						isImgFirst={section.image ? counter++ % 2 === 0 : undefined}
+						button={section.button}
 					/>
 				))}
 

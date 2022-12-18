@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_buttons",
+  "info": {
+    "displayName": "Button",
+    "icon": "location-arrow"
+  },
+  "options": {},
+  "attributes": {
+    "link": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    }
+  }
+}

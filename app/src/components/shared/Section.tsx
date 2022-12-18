@@ -51,7 +51,7 @@ export const Section: React.FC<SectionProps> = (props) => {
                     </Flex>
                 </Flex>
             :             
-                <Content 
+                <Content
                     {...props}
                 />
         }

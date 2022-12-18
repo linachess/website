@@ -14,9 +14,6 @@
     "title": {
       "type": "string"
     },
-    "linkButton": {
-      "type": "string"
-    },
     "image": {
       "type": "media",
       "multiple": false,
@@ -27,6 +24,11 @@
         "videos",
         "audios"
       ]
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button"
     }
   }
 }

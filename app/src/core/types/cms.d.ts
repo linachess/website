@@ -150,6 +150,11 @@ namespace CMS {
         text: string
         title?: string
         image?: Image
-        linkButton?: string
+        button?: Button
+    }>
+
+    type Button = Component<{
+        text: string
+        link: string
     }>
 }
