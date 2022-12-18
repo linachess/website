@@ -67,7 +67,7 @@ namespace CMS {
 
     type Discount = GenericProps<{
         code: string
-        percentage: number
+        newPrice: number
         type: 'infinite' | 'oneTime' = 'infinite'
         active: boolean = true
         count: number = 0

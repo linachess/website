@@ -1,4 +1,3 @@
-import { getPromotedPrice } from '@utils/functions'
 import { strapi } from '@utils/lib'
 import type { InferGetStaticPropsType, NextPage } from 'next'
 
@@ -18,7 +17,7 @@ export const getStaticProps = async () => {
 			description: homepageData.presentation,
 			image: '/assets/chess_queen.svg',
 			price: buyData.currentPrice,
-			promotedPrice: getPromotedPrice(buyData.currentPrice, buyData.currentDiscount) || null,
+			promotedPrice: buyData.currentDiscount?.newPrice || null,
 			buyable: buyData.buyable,
 			sections: homepageData.sections
 		}

@@ -11,7 +11,7 @@ const BuySuccessPage: NextPage = () => {
 	return (<>
 
 		<DefaultLayout
-			title='BuySuccess'
+			title='Buy Success'
 		>
 
 			<Flex h='60vh' flexDir='column' justifyContent='center'>

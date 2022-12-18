@@ -79,13 +79,13 @@ export class Invoice {
 
               total : [
 
-                ...(invoiceData.discount ? [{
+                ...(invoiceData.originalPrice !== invoiceData.buyPrice ? [{
                   label : 'Discount',
-                  value : `-${invoiceData.discount.percentage}%`,
+                  value : `-${(invoiceData.originalPrice - invoiceData.buyPrice).toFixed(2)}€`,
                 }] : []),
 
                 {
-                  label : 'Subtotal',
+                  label : 'Total',
                   value : invoiceData.buyPrice,
                   price : true
                 },

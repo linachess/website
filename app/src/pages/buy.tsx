@@ -1,4 +1,3 @@
-import { getPromotedPrice } from '@core/utils/functions'
 import { strapi } from '@utils/lib'
 import type { InferGetStaticPropsType, NextPage } from 'next'
 import * as yup from 'yup'
@@ -23,7 +22,7 @@ export const getStaticProps = async () => {
 	return {
 		props: {
 			price: buyData.currentPrice,
-			promotedPrice: getPromotedPrice(buyData.currentPrice, buyData.currentDiscount) || null,
+			promotedPrice: buyData.currentDiscount?.newPrice || null,
 			buyable: buyData.buyable
 		}
 	}

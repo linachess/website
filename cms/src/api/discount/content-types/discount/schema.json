@@ -17,7 +17,7 @@
       "regex": "^[A-Z0-9]+$",
       "required": true
     },
-    "percentage": {
+    "newPrice": {
       "type": "decimal",
       "required": true
     },

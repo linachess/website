@@ -1,5 +1,5 @@
 import { InvalidDiscountCodeError } from '@utils/errors'
-import { applyDiscountPercentage, formatStrapiResponse } from '@utils/functions'
+import { formatStrapiResponse } from '@utils/functions'
 import axios, { AxiosRequestConfig } from 'axios'
 
 class Strapi {
@@ -69,7 +69,7 @@ class Strapi {
             if (!discount) {
                 throw new InvalidDiscountCodeError()
             } else {
-                return applyDiscountPercentage(basePrice, discount.percentage)
+                return discount.newPrice
             }
 
         } else {
@@ -77,7 +77,7 @@ class Strapi {
             const baseDiscount = (await this.findOne('buy')).currentDiscount
 
             if (baseDiscount && baseDiscount.active) {
-                return applyDiscountPercentage(basePrice, baseDiscount.percentage)
+                return baseDiscount.newPrice
             } else {
                 return basePrice
             }

@@ -1,7 +1,7 @@
 import paypalSDK from '@paypal/checkout-server-sdk'
 import { publicProcedure, router } from '@server/trpc'
 import { TRPCError } from '@trpc/server'
-import { generateHash, generateLicenseKey } from '@utils/functions/generator'
+import { generateHash, generateLicenseKey } from '@utils/functions'
 import { strapi } from '@utils/lib'
 import paypal from '@utils/lib/paypal'
 import { z } from 'zod'
