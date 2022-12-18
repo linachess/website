@@ -4,7 +4,8 @@
   "info": {
     "singularName": "investor",
     "pluralName": "investors",
-    "displayName": "Investor"
+    "displayName": "Investor",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -20,12 +21,12 @@
       "required": true
     },
     "image": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": false
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

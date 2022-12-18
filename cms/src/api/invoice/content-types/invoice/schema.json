@@ -60,6 +60,10 @@
     "originalPrice": {
       "type": "float",
       "required": true
+    },
+    "versionBought": {
+      "type": "string",
+      "required": false
     }
   }
 }

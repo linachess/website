@@ -30,7 +30,7 @@ class Strapi {
         return Array.isArray(data) ? data[0] || null : data
     }
 
-    async create<K extends keyof CMS.Correspondance>(url: K, data: any): Promise<CMS.Correspondance[K]> {
+    async create<K extends keyof CMS.Correspondance>(url: K, data: {[V in keyof CMS.Correspondance[K]]: any}): Promise<CMS.Correspondance[K]> {
 
         const res = await this.axios.post(this.sanitizeUrl(url), { data }, {
             params: {
@@ -40,7 +40,7 @@ class Strapi {
         return formatStrapiResponse(res.data)
     }
 
-    async update<K extends keyof CMS.Correspondance>(url: K, id: number, data: any): Promise<CMS.Correspondance[K]> {
+    async update<K extends keyof CMS.Correspondance>(url: K, id: number, data: {[V in keyof CMS.Correspondance[K]]?: any}): Promise<CMS.Correspondance[K]> {
 
         const res = await this.axios.put(this.sanitizeUrl(url) + `/${id}`, { data })
         return formatStrapiResponse(res.data)

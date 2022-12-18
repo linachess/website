@@ -119,7 +119,8 @@ export const paypalRouter = router({
                 buyPrice: paypalResponse.result.purchase_units[0].payments.captures[0].amount.value,
                 originalPrice: currentPrice,
                 discount: discountId,
-                license: licenseData.id
+                license: licenseData.id,
+                versionBought: currentVersion?.version
             })
             
             return { 

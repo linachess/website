@@ -82,6 +82,7 @@ namespace CMS {
         originalPrice: number
         date: string
 
+        versionBought?: string
         paypalEmail?: string
         paypalTransactionId?: string
 
