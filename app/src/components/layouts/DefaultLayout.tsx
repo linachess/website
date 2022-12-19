@@ -22,7 +22,7 @@ export const DefaultLayout: React.FC<DefaultLayoutProps> = ({
     
         <Head>
 			<title>{ title }</title>
-            <link rel="icon" href={ iconHref } />
+            <link rel="icon" href={ iconHref ?? '/assets/icon.png' } />
 		</Head>
 
         <Navbar version={version}/>

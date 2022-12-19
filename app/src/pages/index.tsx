@@ -45,7 +45,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 	return (<>
 
 		<DefaultLayout
-			title='Home'
+			title='LinaChess'
 			version={props.version}
 		>
 
