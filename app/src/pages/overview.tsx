@@ -1,11 +1,11 @@
-import type { NextPage, GetStaticProps, InferGetStaticPropsType } from 'next'
+import type { InferGetServerSidePropsType, NextPage } from 'next'
 
-import { Box, VStack } from '@chakra-ui/react'
+import { VStack } from '@chakra-ui/react'
 import { DefaultLayout } from '@components/layouts'
-import { strapi } from '@utils/lib'
 import { Section } from '@components/shared'
+import { strapi } from '@utils/lib'
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
 
 	const overviewData = await strapi.findOne('overview')
 
@@ -16,7 +16,7 @@ export const getStaticProps = async () => {
 	}
 }
 
-type OverviewPageProps = InferGetStaticPropsType<typeof getStaticProps>
+type OverviewPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const OverviewPage: NextPage<OverviewPageProps> = (props) => {
 

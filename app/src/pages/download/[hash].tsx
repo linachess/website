@@ -1,12 +1,13 @@
 import { strapi } from '@utils/lib'
-import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
+import type { GetServerSidePropsContext, InferGetServerSidePropsType, NextPage, PreviewData } from 'next'
 import { useRouter } from 'next/router'
+import { ParsedUrlQuery } from 'querystring'
 import { useEffect } from 'react'
 
 import { Box, Flex, Text } from '@chakra-ui/react'
 import { DefaultLayout } from '@components/layouts'
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) => {
 
 	const file = await strapi.getBinaryFromDownloadHash(ctx.params!.hash as string)
 

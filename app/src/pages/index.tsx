@@ -1,10 +1,9 @@
 import { strapi } from '@utils/lib'
-import type { InferGetStaticPropsType, NextPage } from 'next'
+import type { InferGetServerSidePropsType, NextPage } from 'next'
 
 import { Box, Button, Flex, Heading, Image, keyframes, Text, VStack } from '@chakra-ui/react'
 import { DefaultLayout } from '@components/layouts'
-import { Section } from '@components/shared'
-import { Price } from '@components/shared'
+import { Price, Section } from '@components/shared'
 
 const scrollButtonAnimation = keyframes`
 	0% {
@@ -20,7 +19,7 @@ const scrollButtonAnimation = keyframes`
 	}
 `
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
 
 	const homepageData = await strapi.findOne('homepage'),
 		  buyData = await strapi.findOne('buy')
@@ -38,7 +37,7 @@ export const getStaticProps = async () => {
 	}
 }
 
-type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>
+type HomePageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const HomePage: NextPage<HomePageProps> = (props) => {
 	
@@ -144,9 +143,9 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 								width='65%'
 							/> : undefined
 						}
-						button={section.linkButton ? {
-							text: 'Learn more',
-							link: section.linkButton,
+						button={section.button ? {
+							text: section.button.text,
+							link: section.button.link,
 							size: 'md',
 							variant: 'secondary'
 						} : undefined}

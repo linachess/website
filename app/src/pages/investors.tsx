@@ -1,10 +1,10 @@
 import { strapi } from '@utils/lib'
-import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
+import type { InferGetServerSidePropsType, NextPage } from 'next'
 
-import { Box, Button, Flex, Heading, Image, SimpleGrid, Stack, Text, VStack } from '@chakra-ui/react'
+import { Button, Flex, Heading, Image, SimpleGrid, Text, VStack } from '@chakra-ui/react'
 import { DefaultLayout } from '@components/layouts'
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
 	
 	const investorsData = await strapi.findOne('investor'),
 		  sellerData = await strapi.findOne('seller')
@@ -17,7 +17,7 @@ export const getStaticProps = async () => {
 	}
 }
 
-type InvestorsPageProps = InferGetStaticPropsType<typeof getStaticProps>
+type InvestorsPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const InvestorsPage: NextPage<InvestorsPageProps> = (props) => {
 

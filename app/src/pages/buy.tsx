@@ -1,8 +1,8 @@
 import { strapi } from '@utils/lib'
-import type { InferGetStaticPropsType, NextPage } from 'next'
+import type { InferGetServerSidePropsType, NextPage } from 'next'
 import * as yup from 'yup'
 
-import { Box, Divider, Heading } from '@chakra-ui/react'
+import { Box, Heading } from '@chakra-ui/react'
 import { DefaultLayout } from '@components/layouts'
 import { BuyForm } from '@components/modules'
 import { Price } from '@components/shared'
@@ -15,7 +15,7 @@ const formSchema = yup.object({
 	discountCode: yup.string().optional(),
 })
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
 
 	const buyData = await strapi.findOne('buy')
 
@@ -28,7 +28,7 @@ export const getStaticProps = async () => {
 	}
 }
 
-type BuyPageProps = InferGetStaticPropsType<typeof getStaticProps>
+type BuyPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const BuyPage: NextPage<BuyPageProps> = (props) => {
 
