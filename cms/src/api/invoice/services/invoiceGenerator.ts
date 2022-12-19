@@ -16,7 +16,11 @@ export class Invoice {
 
         style : {
             header : {
-              label: 'LinaChess'
+              image: {
+                path: './public/assets/logo.png',
+                width: 200,
+                height: 31,
+              }
             }
         },
 
