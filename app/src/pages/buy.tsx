@@ -21,6 +21,7 @@ export const getServerSideProps = async () => {
 
 	return {
 		props: {
+			version: await strapi.getCurrentVersion(),
 			price: buyData.currentPrice,
 			promotedPrice: buyData.currentDiscount?.newPrice || null,
 			buyable: buyData.buyable
@@ -36,9 +37,14 @@ const BuyPage: NextPage<BuyPageProps> = (props) => {
 
 		<DefaultLayout
 			title='Buy'
+			version={props.version}
 		>
 
-			{props.buyable && <Heading mt='1rem' mb='2rem'>Buy LinaChess now!</Heading>}
+			{props.buyable && 
+				<Heading mt='1rem' mb='2rem'>
+					Buy <Box as='span' color='text.white'>LinaChess v{props.version}</Box> now!
+				</Heading>
+			}
 
 			<Price 
 				buyable={props.buyable}

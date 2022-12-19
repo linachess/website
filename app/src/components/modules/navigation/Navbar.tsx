@@ -3,9 +3,11 @@ import React from 'react'
 import { Button, Flex, HStack } from '@chakra-ui/react'
 import { Logo, NavItem } from '@components/modules/navigation'
 
-type NavbarProps = {}
+type NavbarProps = {
+    version?: string
+}
 
-export const Navbar: React.FC<NavbarProps> = () => {
+export const Navbar: React.FC<NavbarProps> = ({ version }) => {
 
 	return (<>
 
@@ -16,7 +18,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
         >
 
             {/* left */}
-            <Logo />
+            <Logo version={version}/>
 
             {/* right */}
             <HStack spacing='3em'>

@@ -12,6 +12,7 @@ export const getServerSideProps = async () => {
 	return {
 		props: {
 			...investorsData,
+			version: await strapi.getCurrentVersion(),
 			contactEmail: sellerData.email
 		}
 	}
@@ -25,6 +26,7 @@ const InvestorsPage: NextPage<InvestorsPageProps> = (props) => {
 
 		<DefaultLayout
 			title='Investors'
+			version={props.version}
 		>
 
 			<SimpleGrid

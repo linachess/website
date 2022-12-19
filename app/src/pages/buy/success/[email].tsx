@@ -1,10 +1,22 @@
-import type { NextPage } from 'next'
-
-import { Box, Flex, Text } from '@chakra-ui/react'
-import { DefaultLayout } from '@components/layouts'
+import { strapi } from '@utils/lib'
+import type { InferGetServerSidePropsType, NextPage } from 'next'
 import { useRouter } from 'next/router'
 
-const BuySuccessPage: NextPage = () => {
+import { Flex, Text } from '@chakra-ui/react'
+import { DefaultLayout } from '@components/layouts'
+
+export const getServerSideProps = async () => {
+
+	return {
+		props: {
+			version: await strapi.getCurrentVersion()
+		}
+	}
+}
+
+type BuySuccessProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const BuySuccessPage: NextPage<BuySuccessProps> = (props) => {
 
 	const { query } = useRouter()
 
@@ -12,6 +24,7 @@ const BuySuccessPage: NextPage = () => {
 
 		<DefaultLayout
 			title='Buy Success'
+			version={props.version}
 		>
 
 			<Flex h='60vh' flexDir='column' justifyContent='center'>

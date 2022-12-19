@@ -13,6 +13,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext<ParsedUr
 
 	return {
 		props: {
+			version: await strapi.getCurrentVersion(),
 			validFile: !!file
 		}
 	}
@@ -20,12 +21,12 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext<ParsedUr
 
 type DownloadPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const DownloadPage: NextPage<DownloadPageProps> = ({ validFile }) => {
+const DownloadPage: NextPage<DownloadPageProps> = (props) => {
 
 	const router = useRouter()
 
 	useEffect(() => {
-		if (validFile) {
+		if (props.validFile) {
 			router.push(`/api/download/${router.query.hash}`)
 		}
 	}, [])
@@ -34,11 +35,12 @@ const DownloadPage: NextPage<DownloadPageProps> = ({ validFile }) => {
 
 		<DefaultLayout
 			title='Download'
+			version={props.version}
 		>
 
 			<Flex h='60vh' alignItems='center'>
 				<Text fontSize='1.5em'>
-					{validFile ? 
+					{props.validFile ? 
 						<>Download has started!</>
 						:
 						<Box as='span' color='red.400'>Invalid download link (or file has expired).</Box>

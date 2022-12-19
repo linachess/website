@@ -6,12 +6,14 @@ import Head from 'next/head'
 
 type DefaultLayoutProps = {
     title: string 
+    version?: string
     iconHref?: string
     children: React.ReactNode
 }
 
 export const DefaultLayout: React.FC<DefaultLayoutProps> = ({ 
     title,
+    version,
     iconHref,
     children 
 }) => {
@@ -23,7 +25,7 @@ export const DefaultLayout: React.FC<DefaultLayoutProps> = ({
             <link rel="icon" href={ iconHref } />
 		</Head>
 
-        <Navbar />
+        <Navbar version={version}/>
 
         <Flex justifyContent='center' px='5rem' pb='10rem'>
 

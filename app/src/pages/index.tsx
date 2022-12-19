@@ -26,6 +26,7 @@ export const getServerSideProps = async () => {
 
 	return {
 		props: {
+			version: await strapi.getCurrentVersion(),
 			catchPhrase: homepageData.catchPhrase,
 			description: homepageData.presentation,
 			image: '/assets/chess_queen.svg',
@@ -45,6 +46,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
 		<DefaultLayout
 			title='Home'
+			version={props.version}
 		>
 
 			{/* Hero section */}
@@ -128,7 +130,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
 			{/* Investors section */}
 
-			<VStack spacing={{ base: '3em', lg: '5em' }} maxW='800px'>
+			<VStack spacing={{ base: '2em', lg: '3em' }} maxW='800px'>
 
 				{props.sections?.map((section, index) => (
 					<Section

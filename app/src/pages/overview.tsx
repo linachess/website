@@ -11,6 +11,7 @@ export const getServerSideProps = async () => {
 
 	return {
 		props: {
+			version: await strapi.getCurrentVersion(),
 			sections: overviewData.sections
 		}
 	}
@@ -26,6 +27,7 @@ const OverviewPage: NextPage<OverviewPageProps> = (props) => {
 
 		<DefaultLayout
 			title='Overview'
+			version={props.version}
 		>
 
 			<VStack spacing={10}>

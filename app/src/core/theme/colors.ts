@@ -8,7 +8,8 @@ const colors = {
     text: {
         primary: '#bea08a',
         secondary: '#696969',
-        tertiary: '#303030'
+        tertiary: '#303030',
+        white: '#c9c9c9',
     },
 
 }

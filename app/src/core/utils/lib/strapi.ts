@@ -104,6 +104,13 @@ class Strapi {
         const file = license.version!.binary
         return file
     }
+
+    async getCurrentVersion(): Promise<string | undefined> {
+
+        const buy = await this.findOne('buy')
+
+        return buy.currentVersion?.version
+    }
 }
 
 export const strapi = new Strapi()
