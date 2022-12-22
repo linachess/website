@@ -1,7 +1,7 @@
 import { strapi } from '@utils/lib'
 import type { InferGetServerSidePropsType, NextPage } from 'next'
 
-import { Box, Button, Flex, Heading, Image, keyframes, Text, VStack } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Image, keyframes, Stack, Text, VStack } from '@chakra-ui/react'
 import { DefaultLayout } from '@components/layouts'
 import { Price, Section } from '@components/shared'
 
@@ -51,9 +51,9 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
 			{/* Hero section */}
 
-			<Flex mt='2.5rem' w='100%' justifyContent='space-between'>
+			<Stack direction={{ base: 'column', md: 'column', lg: 'row' }} mt='2.5rem' w='100%' justifyContent='space-between'>
 
-				<VStack maxW='50%' spacing={10} justifyContent='center' alignItems='start'>
+				<VStack maxW={{ base: 'auto', md: 'auto', lg: '50%' }} spacing={10} justifyContent='center' alignItems='start'>
 
 					<Heading as='h1'
 						fontSize='4rem'
@@ -79,18 +79,18 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
 				</VStack>
 
-				<Flex justifyContent='end'>
+				<Flex justifyContent={{ base: 'center', md: 'center', lg: 'end' }}>
 
 					<Image 
 						src={props.image}
 						alt='Chess queen'
-						width='125px'
+						width={{ base: '75px', md: '100px', lg: '125px' }}
 						transform='rotate(-10deg)'
 						filter='invert(32%) sepia(7%) saturate(1564%) hue-rotate(343deg) brightness(87%) contrast(84%)' // #5e4e42 -> https://codepen.io/sosuke/pen/Pjoqqp
 					/>
 				</Flex>
 				
-			</Flex>
+			</Stack>
 
 			{/* Scroll arrow */}
 

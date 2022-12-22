@@ -27,7 +27,7 @@ export const DefaultLayout: React.FC<DefaultLayoutProps> = ({
 
         <Navbar version={version}/>
 
-        <Flex justifyContent='center' px='5rem' pb='10rem'>
+        <Flex justifyContent='center' px={{ base: '2rem', md: '2rem', lg: '5rem' }} pb='10rem'>
 
             <Flex 
                 flexDir='column' alignItems='center' 

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import { Button, Flex, HStack } from '@chakra-ui/react'
-import { Logo, NavItem } from '@components/modules/navigation'
+import { Box, Button, Flex, HStack, Stack } from '@chakra-ui/react'
+import { Logo, NavItem, NavToggle } from '@components/modules/navigation'
 
 type NavbarProps = {
     version?: string
@@ -9,32 +9,49 @@ type NavbarProps = {
 
 export const Navbar: React.FC<NavbarProps> = ({ version }) => {
 
+    const [isOpen, setIsOpen] = useState(false)
+
+    const toggle = () => setIsOpen(!isOpen)
+
 	return (<>
 
-        <Flex 
-            justifyContent='space-between' 
-            padding='1.5em 3em'
-            marginBottom='1em'
+        <Flex
+            as='nav'
+            align='center' justify='space-between' wrap='wrap'
+            w='100%' mb={8} p={8}
         >
 
             {/* left */}
             <Logo version={version}/>
 
+            {/* toggle */}
+            <NavToggle isOpen={isOpen} toggle={toggle}/>
+
             {/* right */}
-            <HStack spacing='3em'>
-                
-                <NavItem title="Home" href="/"/>
-                <NavItem title="Investors" href="/investors"/>
-                <NavItem title="Overview" href="/overview"/>
-
-                <Button 
-                    as='a' href='/buy'
-                    variant='primary'
+            <Box
+                display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
+                flexBasis={{ base: '100%', md: 'auto' }}
+            >
+                <Stack
+                    spacing={8}
+                    align='center'
+                    justify={['center', 'space-between', 'flex-end', 'flex-end']}
+                    direction={['column', 'row', 'row', 'row']}
+                    pt={[4, 4, 0, 0]}
                 >
-                    Buy
-                </Button>
+                    <NavItem title='Home' to='/' />
+                    <NavItem title='Investors' to='/investors' />
+                    <NavItem title='Overview' to='/overview' />
 
-            </HStack>
+                    <Button 
+                        as='a' href='/buy'
+                        variant='primary'
+                    >
+                        Buy
+                    </Button>
+                    
+                </Stack>
+            </Box>
 
         </Flex>
     </>)

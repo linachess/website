@@ -5,14 +5,14 @@ import { Box, Text } from '@chakra-ui/react'
 
 type NavItemProps = {
     title: string
-    href: string
-}
+    to: string
+} & Rest
 
-export const NavItem: React.FC<NavItemProps> = ({ title, href }) => {
+export const NavItem: React.FC<NavItemProps> = ({ title, to = '/', ...rest }) => {
 
 	return (<>
 
-        <Link href={href}>
+        <Link href={to}>
             <Box cursor='pointer'>
                 <Text>{title}</Text>
             </Box>

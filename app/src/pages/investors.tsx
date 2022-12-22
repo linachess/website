@@ -30,16 +30,16 @@ const InvestorsPage: NextPage<InvestorsPageProps> = (props) => {
 		>
 
 			<SimpleGrid
-				columns={2}
+				columns={{ base: 1, md: 2 }}
 				gap='20px'
-				mt='3em'
+				mt={{ base: '1em', md: '2em' }}
 			>
 
-				<Flex justifyContent='start'>
+				<Flex justifyContent={{ base: 'center', md: 'center', lg: 'start' }}>
 					<Image 
 						src={process.env['NEXT_PUBLIC_STRAPI_URL'] + props.image?.url} 
 						alt={props.image?.alternativeText}
-						width='80%'
+						width={{ base: '60%', md: '50%', lg: '80%' }}
 					/>
 				</Flex>
 
