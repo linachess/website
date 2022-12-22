@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  
+  linachess-app:
+    container_name: linachess-app 
+    build:
+      context: ./app
+      dockerfile: ./Dockerfile
+    restart: always
+    env_file:
+      - ./app/.env
+    ports:
+      - "8000:3000"
+    depends_on:
+      - linachess-cms
+    
+  linachess-cms:
+    container_name: linachess-cms
+    build:
+      context: ./cms
+      dockerfile: ./Dockerfile
+    ports:
+      - "8001:1337"
+    env_file:
+      - ./cms/.env
+    volumes:
+      - ./cms/.tmp/:/app/.tmp/
+      - ./cms/public/uploads/:/app/public/uploads/
+      - ./cms/src/:/app/src/
+    restart: always

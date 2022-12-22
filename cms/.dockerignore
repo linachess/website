@@ -1,0 +1,12 @@
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+README.md
+.git
+license.txt
+exports
+*.cache
+dist
+build
+.strapi-updater.json
