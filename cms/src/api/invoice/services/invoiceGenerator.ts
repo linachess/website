@@ -75,7 +75,7 @@ export class Invoice {
               parts : [
 
                 [
-                  { value : 'LinaChess' },
+                  { value : `LinaChess v${invoiceData.versionBought}` },
                   { value : 1 }, { value : invoiceData.originalPrice, price : true }
                 ],
 

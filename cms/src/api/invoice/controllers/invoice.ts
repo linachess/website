@@ -31,6 +31,7 @@ export default factories.createCoreController('api::invoice.invoice', ({ strapi 
           licenseKey: invoiceData.license.key,
           downloadExpirationTime: config.downloadExpirationTime,
           downloadLink: `${process.env['APP_URL']}/download/${invoiceData.license.downloadHash}`,
+          version: invoiceData.versionBought
         }),
         attachments: [
           {
