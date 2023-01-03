@@ -1,0 +1,1 @@
+cmd_Release/obj.target/licenseGenerator.node := g++ -o Release/obj.target/licenseGenerator.node -shared -pthread -rdynamic -m64  -Wl,-soname=licenseGenerator.node -Wl,--start-group Release/obj.target/licenseGenerator/src/generator.o Release/obj.target/licenseGenerator/src/index.o -Wl,--end-group 

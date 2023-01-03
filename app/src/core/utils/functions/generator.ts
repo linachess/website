@@ -7,12 +7,6 @@ const randomString = (length: number, characters: string) => {
     return result
 }
 
-export const generateLicenseKey = () => {
-    
-    // a random string with 4 uppercase letters, a dash and 4 digits afterward
-    return randomString(4, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') + '-' + randomString(4, '0123456789')
-}
-
 export const generateHash = () => {
         
     // a random string with 32 lowercase letters

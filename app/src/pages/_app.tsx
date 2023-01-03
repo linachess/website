@@ -15,9 +15,11 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 	
   	return (
 		<ChakraProvider theme={theme}>
-			<QueryClientProvider client={queryClient}>				
+			<QueryClientProvider client={queryClient}>
 				<PayPalScriptProvider options={{
-					'client-id': process.env['NEXT_PUBLIC_PAYPAL_CLIENT_ID'],
+					'client-id': process.env['NODE_ENV'] === 'production' ? 
+						process.env['NEXT_PUBLIC_PAYPAL_CLIENT_ID'] :
+						process.env['NEXT_PUBLIC_SANDBOX_PAYPAL_CLIENT_ID'],
 					currency: 'EUR'
 				}}>
 					<Fade

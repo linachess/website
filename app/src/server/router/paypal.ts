@@ -1,9 +1,10 @@
 import paypalSDK from '@paypal/checkout-server-sdk'
 import { publicProcedure, router } from '@server/trpc'
 import { TRPCError } from '@trpc/server'
-import { generateHash, generateLicenseKey } from '@utils/functions'
+import { generateHash } from '@utils/functions'
 import { strapi } from '@utils/lib'
 import paypal from '@utils/lib/paypal'
+import axios from 'axios'
 import { z } from 'zod'
 
 const paypalClient = paypal()
@@ -101,9 +102,10 @@ export const paypalRouter = router({
 
             // create the license
             const { currentVersion, currentPrice } = await strapi.findOne('buy')
+            const { data } = await axios.get(process.env['LICENSE_GENERATOR_URL'])
 
             const licenseData = await strapi.create('licenses', {
-                key: generateLicenseKey(),
+                key: data,
                 downloadHash: generateHash(),
                 version: currentVersion!.id
             })

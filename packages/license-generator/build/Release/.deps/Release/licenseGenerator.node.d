@@ -1,0 +1,1 @@
+cmd_Release/licenseGenerator.node := ln -f "Release/obj.target/licenseGenerator.node" "Release/licenseGenerator.node" 2>/dev/null || (rm -rf "Release/licenseGenerator.node" && cp -af "Release/obj.target/licenseGenerator.node" "Release/licenseGenerator.node")

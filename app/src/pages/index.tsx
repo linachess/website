@@ -33,7 +33,7 @@ export const getServerSideProps = async () => {
 			price: buyData.currentPrice,
 			promotedPrice: buyData.currentDiscount?.newPrice || null,
 			buyable: buyData.buyable,
-			sections: homepageData.sections
+			sections: homepageData.sections,
 		}
 	}
 }

@@ -11,7 +11,19 @@ services:
     env_file:
       - ./app/.env
     ports:
-      - "8000:3000"
+      - '8000:3000'
+    depends_on:
+      - linachess-cms
+      - license-generator
+
+  license-generator:
+    container_name: license-generator
+    build:
+      context: ./packages/license-generator
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - '8002:3000'
     depends_on:
       - linachess-cms
     
@@ -21,7 +33,7 @@ services:
       context: ./cms
       dockerfile: ./Dockerfile
     ports:
-      - "8001:1337"
+      - '8001:1337'
     env_file:
       - ./cms/.env
     volumes:
