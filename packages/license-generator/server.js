@@ -1,7 +1,7 @@
 const fastify = require('fastify')({ logger: true })
 const { generateLicenseKey } = require('./build/Release/licenseGenerator.node')
 
-const PORT = 8002
+const PORT = 3001
 
 const randomString = (length, characters) => {
     
@@ -25,7 +25,7 @@ fastify.get('/', async (request, reply) => {
 const start = async () => {
 
     try {
-        await fastify.listen({ port: PORT })
+        await fastify.listen({ port: PORT, host: '0.0.0.0' })
     } catch (err) {
         fastify.log.error(err)
         process.exit(1)
